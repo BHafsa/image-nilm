@@ -20,7 +20,7 @@ from copy import deepcopy
 # NILMTK Imports
 from nilmtk.api import API
 from disaggregate.Im2Seq import Im2Seq
-
+# from nilmtk_contrib.disaggregate import FHMMExact
 
 ################### SETTINGS ###################
 
@@ -29,7 +29,7 @@ DATA_DIR = './data/'
 settings = {
     'metrics': ['mae', 'nde', 'f1score', 'r2score'],
     'batch_size': 64,
-    'epochs': 10,
+    'epochs': 1,
     'sampling_interval': 10,
     'sequence_length': 120, 
     'chunksize': 200,
@@ -48,14 +48,14 @@ except FileNotFoundError:
 
 disaggregation_methods = {
     # OLD-SCHOOL NILM Algorithms
-    'FHMMExact': FHMMExact({}),
+    # 'FHMMExact': FHMMExact({}),
     # baseline DNN Approaches
-    'DAE': DAE({
-            'n_epochs': settings['epochs'], 
-            'batch_size': settings['batch_size'], 
-            'sequence_length': settings['sequence_length']
-        }
-        ),
+    # 'DAE': DAE({
+    #         'n_epochs': settings['epochs'], 
+    #         'batch_size': settings['batch_size'], 
+    #         'sequence_length': settings['sequence_length']
+    #     }
+    #     ),
     # Im2Seq DNN Approaches
     'CNN_MTF': Im2Seq({
         'n_epochs': settings['epochs'],
@@ -86,23 +86,23 @@ disaggregation_methods = {
 basic_experiments = {
 
 
-    'SynD-1': {
-        'data_set': 'SynD',
-        'house': 1,
-        'ac_type': ['active'],
+    # 'SynD-1': {
+    #     'data_set': 'SynD',
+    #     'house': 1,
+    #     'ac_type': ['active'],
 
-        'f1': {
-            'train_dates': ['2019-10-01', '2020-01-01'],
-            'test_dates': ['2020-02-01', '2020-02-15'],
-        },
+    #     'f1': {
+    #         'train_dates': ['2019-10-01', '2020-01-01'],
+    #         'test_dates': ['2020-02-01', '2020-02-15'],
+    #     },
 
-        'appliances': [
-            'fridge',
-            'dish washer',
-            'washing machine',
-            'microwave'
-        ]
-    },
+    #     'appliances': [
+    #         'fridge',
+    #         'dish washer',
+    #         'washing machine',
+    #         'microwave'
+    #     ]
+    # },
 
 
      'UK-2': {
@@ -111,35 +111,35 @@ basic_experiments = {
         'ac_type': 'active',
 
         'f1': {
-            'train_dates': ['2013-07-25', '2013-10-25'],
-            'test_dates': ['2013-10-15', '2013-11-30'],
+            'train_dates': ['2013-07-25', '2013-07-26'],
+            'test_dates': ['2013-10-15', '2013-10-16'],
         },
 
         'appliances': [
             'fridge',
-            'dish washer',
-            'washing machine',
-            'microwave'
+            # 'dish washer',
+            # 'washing machine',
+            # 'microwave'
         ]
     },
     
-    'REFIT-5': {
-        'data_set': 'REFIT',
-        'house': 6,
-        'ac_type': 'active',
+    # 'REFIT-5': {
+    #     'data_set': 'REFIT',
+    #     'house': 6,
+    #     'ac_type': 'active',
 
-        'f1': {
-            'train_dates': ['2014-07-25', '2014-10-25'],
-            'test_dates': ['2014-11-15', '2014-11-30'],
-        },
+    #     'f1': {
+    #         'train_dates': ['2014-07-25', '2014-10-25'],
+    #         'test_dates': ['2014-11-15', '2014-11-30'],
+    #     },
 
-        'appliances': [
-            'fridge',
-            'dish washer',
-            'washing machine',
-            'microwave'
-        ]
-    }
+    #     'appliances': [
+    #         'fridge',
+    #         'dish washer',
+    #         'washing machine',
+    #         'microwave'
+    #     ]
+    # }
 }
 
 ################### CONDUCT EXPERIMENTS ###################

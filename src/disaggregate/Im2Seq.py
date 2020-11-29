@@ -127,9 +127,9 @@ class Im2Seq(Disaggregator):
                     validation_batch_generator = BatchGenerator(v_x, v_y, self.batch_size, self.img_method,
                                                                 self.img_size)
 
-                    loss_history = LossHistory()
-                    lrate = LearningRateScheduler(step_decay)
-                    callbacks_list = [loss_history, lrate, checkpoint]
+                    
+                    
+                    callbacks_list = [ checkpoint]
 
                     with tf.device('/device:GPU:0'):
                         print('training with GPU')
@@ -138,7 +138,7 @@ class Im2Seq(Disaggregator):
                                             epochs=self.n_epochs,
                                             verbose=1,
                                             shuffle=True,
-                                            callbacks=checkpoint,
+                                            callbacks=callbacks_list,
                                             validation_data=validation_batch_generator,
                                             validation_steps=int(len(v_y) // self.batch_size))
                     model.load_weights(filepath)
@@ -161,6 +161,7 @@ class Im2Seq(Disaggregator):
 
                 batch_generator = BatchGenerator(test_main_array, None, self.batch_size, self.img_method, self.img_size)
                 prediction = model.predict_generator(batch_generator)
+                
                 print('prediction finished')
                 print(len(prediction))
                 print(prediction.shape)
@@ -186,6 +187,7 @@ class Im2Seq(Disaggregator):
                 valid_predictions = np.where(valid_predictions > 0, valid_predictions, 0)
                 df = pd.Series(valid_predictions)
                 disggregation_dict[appliance] = df
+                print(prediction.shape)
             results = pd.DataFrame(disggregation_dict, dtype='float32')
             test_predictions.append(results)
         return test_predictions

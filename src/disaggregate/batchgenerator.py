@@ -19,7 +19,7 @@ class BatchGenerator(tf.keras.utils.Sequence) :
             img_method (str, optional): the type of image transform. Defaults to 'gasf'.
             img_size (int, optional): the output image size. Defaults to 28.
         """
-        super.__init__(BatchGenerator,)
+        super(BatchGenerator,self).__init__()
         self.x_sequence = x_sequence
         self.y_sequence = y_sequence
         self.batch_size = batch_size
@@ -55,6 +55,15 @@ class BatchGenerator(tf.keras.utils.Sequence) :
             transformer = RecurrencePlot(threshold='point' ,percentage=20)
             tsi= transformer.fit_transform(data)
         elif self.img_size == 'all':
+            print("""
+
+                To use the three images at once 
+                the input layer need to be adapted in (line 197 in IM2Seq.py).
+                The new input layer should be :
+                model.add(Conv2D(filters=8, kernel_size=4, strides=2, activation='linear',
+                         input_shape=(self.img_size, self.img_size, 3)))
+
+            """)
             RP =  RecurrencePlot(threshold='point' ,percentage=20).fit_transform(data)
             GASF = GramianAngularField(image_size=self.img_size,method='summation').fit_transform(data)
             MTF = MarkovTransitionField(image_size=self.img_size).fit_transform(data)
