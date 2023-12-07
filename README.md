@@ -1,7 +1,7 @@
 # Exploring Time Series Imaging for Load Disaggregation
 
 The repository at hand contains the python code relative to our BuildSys20' paper
-> Hafsa Bousbiat, Christoph Klemenjak, and Wilfried Elmenreich. 2020. [Exploring Time Series Imaging for Load Disaggregation.]([https://klemenjak.github.io/publication/2020-10-20-imaging](https://mobile.aau.at/publications/bousbiat-buildsys20-imaging.pdf)) In The 7th ACM International Conference on Systems for Energy-Efficient Buildings, Cities, and Transportation (BuildSys ’20), November 18–20, 2020, Virtual Event, Japan.
+> Hafsa Bousbiat, Christoph Klemenjak, and Wilfried Elmenreich. 2020. [Exploring Time Series Imaging for Load Disaggregation.](https://mobile.aau.at/publications/bousbiat-buildsys20-imaging.pdf) In The 7th ACM International Conference on Systems for Energy-Efficient Buildings, Cities, and Transportation (BuildSys ’20), November 18–20, 2020, Virtual Event, Japan.
 
 ## Proposed Approach
 Many wide-spread load disaggregation techniques perform a sequence-to-sequence mapping between an input sequence (aggregate power readings) and an output sequence that consists of power readings associated with a particular electrical appliance. We propose to augment this pipeline with a 1D-2D transform: a time series imaging block, as illustrated by the figure below. 
